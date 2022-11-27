@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { FC, ReactNode } from 'react';
-import { Navbar } from '../ui';
-import { SideMenu } from '../ui/SideMenu';
+import { Navbar, SideMenu } from '../ui';
 
 interface Props {
   title: string;
