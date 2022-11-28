@@ -1,7 +1,7 @@
 .product-card__container {
   position: relative;
   height: 32vw;
-  transition: all 0.7s;
+  transition: all 0.6s;
 }
 
 .product-card__image--first {
@@ -16,7 +16,7 @@
 
 .product-card__image--second {
   cursor: pointer;
-  transition: all 0.7s;
+  transition: all 0.6s;
   position: absolute;
   top: 0;
   left: 0;
