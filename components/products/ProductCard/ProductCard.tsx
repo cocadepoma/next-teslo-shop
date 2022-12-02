@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useLayoutEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router';
 
 import { Grid, Card, Box, Typography, } from '@mui/material';
@@ -11,10 +11,18 @@ interface Props {
 
 export const ProductCard: FC<Props> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [IsImageLoaded, setIsImageLoaded] = useState(false);
+
+  const ref = useRef(null);
+
   const router = useRouter();
 
   const url1 = `/products/${product.images[0]}`;
   const url2 = `/products/${product.images[1]}`;
+
+  useLayoutEffect(() => {
+    if (ref.current) setIsImageLoaded(true);
+  }, [ref])
 
   return (
     <Grid
@@ -32,11 +40,12 @@ export const ProductCard: FC<Props> = ({ product }) => {
         // onClick={() => router.push(`/product/${product._id}`)}
         onClick={() => router.push(`/product/slug`)}
       >
-        <div className={styles['product-card__image--first']} style={{ backgroundImage: `url(${url2}) ` }} />
+        <div ref={ref} className={styles['product-card__image--first']} style={{ backgroundImage: `url(${url2}) ` }} />
         <div className={styles['product-card__image--second']} style={{ opacity: isHovered ? 0 : 1, backgroundImage: `url(${url1}) ` }} />
       </div>
 
-      <Box sx={{ mt: 1 }} className="fadeIn">
+
+      <Box sx={{ mt: 1, display: IsImageLoaded ? 'bloack' : 'none' }} className="fadeIn">
         <Typography fontWeight={700}>{product.title}</Typography>
         <Typography fontWeight={500}>{`$${product.price}`}</Typography>
       </Box>
