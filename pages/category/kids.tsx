@@ -12,7 +12,7 @@ export default function KidsPage() {
 
   return (
     <ShopLayout title="Teslo-Shop - Kids" pageDescription="Teslo-Shop kids products">
-      <Typography variant="h1" component="h1">Shop</Typography>
+      <Typography variant="h1" component="h1">Kids</Typography>
       <Typography variant="h2" sx={{ mb: 1 }}>Kids Products</Typography>
 
       {

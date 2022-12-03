@@ -12,11 +12,12 @@
   height: 32vw;
   width: 100%;
   background-position: center;
+  transition: all 0.5s;
 }
 
 .product-card__image--second {
   cursor: pointer;
-  transition: all 0.6s;
+  transition: all 0.5s;
   position: absolute;
   top: 0;
   left: 0;

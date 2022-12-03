@@ -1,11 +1,28 @@
 import NextLink from 'next/link';
 
-import { AppBar, Toolbar, Link, Typography, Box, Button, IconButton, Badge } from '@mui/material';
-import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
+import { AppBar, Toolbar, Link, Typography, Box, Button, IconButton, Badge, InputAdornment, Input } from '@mui/material';
+import { ClearAllOutlined, ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
+import { UIContext } from '../../contexts';
 
 export const Navbar = () => {
-  const { asPath } = useRouter();
+  const { asPath, push } = useRouter();
+  const { toogleSideMenu } = useContext(UIContext);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const navigateTo = (url: string) => {
+    push(`/category/${url}`);
+    toogleSideMenu();
+  };
+
+  const onSearchTerm = () => {
+    if (searchTerm.trim().length === 0) return;
+
+    push(`/search/${searchTerm}`);
+  }
 
   return (
     <AppBar>
@@ -20,7 +37,7 @@ export const Navbar = () => {
 
         <Box flex="1" />
 
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Box className="fadeIn" sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'block' } }}>
           <NextLink href="/category/men" passHref legacyBehavior>
             <Link>
               <Button
@@ -68,7 +85,47 @@ export const Navbar = () => {
 
         <Box flex="1" />
 
-        <IconButton>
+        {
+          isSearchVisible
+            ? (
+              <Input
+                sx={{ display: { xs: 'none', sm: 'flex' } }}
+                className="fadeIn"
+                autoFocus
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyUp={(e) => e.key === 'Enter' ? onSearchTerm() : null}
+                type='text'
+                placeholder="Find..."
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setIsSearchVisible(false)}
+                      aria-label="toggle password visibility"
+                    >
+                      <ClearOutlined />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            )
+            : (
+              <IconButton
+                className="fadeIn"
+                onClick={() => setIsSearchVisible(true)}
+                sx={{ display: { xs: 'none', sm: 'flex' } }}
+              >
+                <SearchOutlined />
+              </IconButton>
+            )
+        }
+
+
+
+        <IconButton
+          sx={{ display: { xs: 'flex', sm: 'none' } }}
+          onClick={toogleSideMenu}
+        >
           <SearchOutlined />
         </IconButton>
 
@@ -82,7 +139,7 @@ export const Navbar = () => {
           </Link>
         </NextLink>
 
-        <Button>
+        <Button onClick={toogleSideMenu}>
           Menu
         </Button>
       </Toolbar>

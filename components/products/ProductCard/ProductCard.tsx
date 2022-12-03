@@ -37,10 +37,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
         style={{ boxShadow: isHovered ? '3px 3px 8px -1px rgba(0,0,0,0.25)' : '1px 1px 5px -2px rgba(0,0,0,0.25)' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        // onClick={() => router.push(`/product/${product._id}`)}
-        onClick={() => router.push(`/product/slug`)}
+        onClick={() => router.push(`/product/${product.slug}`)}
       >
-        <div ref={ref} className={styles['product-card__image--first']} style={{ backgroundImage: `url(${url2}) ` }} />
+        <div ref={ref} className={styles['product-card__image--first']} style={{ backgroundImage: `url(${url2})`, opacity: isHovered ? 1 : 0, }} />
         <div className={styles['product-card__image--second']} style={{ opacity: isHovered ? 0 : 1, backgroundImage: `url(${url1}) ` }} />
       </div>
 
