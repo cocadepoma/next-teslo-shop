@@ -2,8 +2,17 @@ import { CartState } from '.';
 import { ICartProduct } from '../../interfaces';
 
 type CartActionType =
-  | { type: '[Cart] Load cart from cookies | storage' }
-  | { type: '[Cart] Add Product', payload: ICartProduct }
+  | { type: '[Cart] Load cart from cookies | storage', payload: ICartProduct[] }
+  | { type: '[Cart] Update products in cart', payload: ICartProduct[] }
+  | {
+    type: '[Cart] Update order summary',
+    payload: {
+      numberOfItems: number;
+      subTotal: number;
+      tax: number;
+      total: number;
+    },
+  }
 
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
 
@@ -11,7 +20,22 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
     case '[Cart] Load cart from cookies | storage':
       return {
         ...state,
+        cart: action.payload
       }
+
+    case '[Cart] Update products in cart': {
+      return {
+        ...state,
+        cart: [...action.payload],
+      }
+    }
+
+    case '[Cart] Update order summary': {
+      return {
+        ...state,
+        ...action.payload,
+      }
+    }
 
     default:
       return state;

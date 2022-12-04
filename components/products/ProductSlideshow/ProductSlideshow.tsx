@@ -11,7 +11,7 @@ export const ProductSlideshow: FC<Props> = ({ images }) => {
   return (
     <Slide
       easing="ease"
-      duration={700}
+      duration={1500}
       indicators
     >
       {

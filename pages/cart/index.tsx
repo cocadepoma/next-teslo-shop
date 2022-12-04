@@ -1,9 +1,20 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect } from 'react'
 import { CardList, OrderSummary } from '../../components/cart';
 import { ShopLayout } from '../../components/layout';
+import { CartContext } from '../../contexts';
 
 const CartPage = () => {
+  const router = useRouter();
+  const { cart } = useContext(CartContext);
+
+  useEffect(() => {
+    // if (cart.length === 0) {
+    //   router.push('/cart/empty');
+    // }
+  }, []);
+
   return (
     <ShopLayout title="Cart - 3" pageDescription="Your shopping cart">
       <Typography variant="h1" component="h1">Cart</Typography>
