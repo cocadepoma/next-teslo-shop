@@ -5,7 +5,7 @@ import Cookie from 'js-cookie';
 import { CartContext, cartReducer } from '.';
 import { ICartProduct } from '../../interfaces';
 
-export interface Props {
+interface Props {
   children: ReactNode;
 }
 
