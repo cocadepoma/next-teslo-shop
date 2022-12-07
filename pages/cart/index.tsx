@@ -7,13 +7,15 @@ import { CartContext } from '../../contexts';
 
 const CartPage = () => {
   const router = useRouter();
-  const { cart } = useContext(CartContext);
+  const { isLoaded, cart } = useContext(CartContext);
 
   useEffect(() => {
-    // if (cart.length === 0) {
-    //   router.push('/cart/empty');
-    // }
-  }, []);
+    if (isLoaded && cart.length === 0) {
+      router.replace('/cart/empty');
+    }
+  }, [isLoaded, cart, router]);
+
+  if (!isLoaded || cart.length === 0) return <></>;
 
   return (
     <ShopLayout title="Cart - 3" pageDescription="Your shopping cart">
@@ -32,7 +34,12 @@ const CartPage = () => {
               {/* Order summary */}
               <OrderSummary />
               <Box sx={{ mt: 3 }}>
-                <Button color="secondary" className="circular-btn" fullWidth>
+                <Button
+                  color="secondary"
+                  className="circular-btn"
+                  fullWidth
+                  href="/checkout/address"
+                >
                   Checkout
                 </Button>
               </Box>

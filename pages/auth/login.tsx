@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { ErrorOutline } from '@mui/icons-material'
 import { Box, Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
 
-import { tesloApi } from '../../api'
 import { AuthLayout } from '../../components/layout'
 import { validations } from '../../utils'
 import { AuthContext } from '../../contexts'
