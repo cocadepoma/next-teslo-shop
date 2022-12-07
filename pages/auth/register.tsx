@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react'
-import NextLink from 'next/link'
+import React, { useContext, useState } from 'react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
-import { Box, Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
+import { Box, Button, Chip, Grid, Link, TextField, Typography } from '@mui/material';
+import { ErrorOutline } from '@mui/icons-material';
 
-import { AuthLayout } from '../../components/layout'
-import { tesloApi } from '../../api'
-import { validations } from '../../utils'
-import { ErrorOutline } from '@mui/icons-material'
-import { AuthContext } from '../../contexts'
-import { useRouter } from 'next/router'
+import { AuthLayout } from '../../components/layout';
+
+import { validations } from '../../utils';
+import { AuthContext } from '../../contexts';
 
 type FormData = {
   email: string;
@@ -39,7 +39,8 @@ const RegisterPage = () => {
       return;
     }
 
-    router.replace('/');
+    const destination = router.query.p?.toString() || '/';
+    router.replace(destination);
   };
 
   return (
@@ -51,7 +52,7 @@ const RegisterPage = () => {
               <Typography variant="h1" component="h1">Create new account</Typography>
 
               <Chip
-                label="An error occured while registering"
+                label={errorMessage}
                 color="error"
                 icon={<ErrorOutline />}
                 className="fadeIn"

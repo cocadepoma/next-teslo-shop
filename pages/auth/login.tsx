@@ -36,8 +36,9 @@ const LoginPage = () => {
       return;
     }
 
-    router.replace('/')
-  }
+    const destination = router.query.p?.toString() || '/';
+    router.replace(destination);
+  };
 
   return (
     <AuthLayout title="Teslo-Shop Log in">
@@ -104,7 +105,7 @@ const LoginPage = () => {
               xs={12}
               sx={{ textAlign: 'right' }}
             >
-              <NextLink href="/auth/register" passHref legacyBehavior>
+              <NextLink href={router.query.p ? `/auth/register?p=${router.query.p}` : '/auth/register'} passHref legacyBehavior>
                 <Link underline="always">
                   Don&apos;t have an account?
                 </Link>
